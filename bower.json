@@ -1,0 +1,22 @@
+{
+  "name": "gitsearch",
+  "homepage": "https://github.com/weiliangc3/gitsearch",
+  "authors": [
+    "Wei Liang <weiliang.c3@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-resource": "^1.5.7",
+    "angular-ui-router": "^0.3.1"
+  }
+}
