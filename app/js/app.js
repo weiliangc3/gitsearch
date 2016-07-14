@@ -36907,7 +36907,7 @@ angular.module('ui.router.state')
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
 angular
-  .module('GitSearcher', ['ngResource', 'ui.router'])
+  .module('GitSearcher', ['ui.router'])
   .constant('API', 'https://api.github.com/')
   .config(MainRouter);
 
@@ -36936,28 +36936,9 @@ function MainRouter($stateProvider, $urlRouterProvider, $locationProvider){
 
 angular
 .module('GitSearcher')
-.controller('UsersController', UsersController);
+.controller('MainController', MainController);
 
-UsersController.$inject = ['User', '$state', '$stateParams'];
-function UsersController(User, $state, $stateParams){
+MainController.$inject = ['$http', '$state', '$stateParams'];
+function MainController($state, $stateParams){
 
-}
-
-angular
-  .module('GitSearcher')
-  .factory('User', User);
-
-User.$inject = ['$resource', 'API'];
-function User($resource, API){
-
-  return $resource(
-    API+'/users/:id', {id: '@id'},
-    { 'get':       { method: 'GET' },
-      'save':      { method: 'POST' },
-      'query':     { method: 'GET', isArray: false},
-      'remove':    { method: 'DELETE' },
-      'delete':    { method: 'DELETE' },
-      'update':    { method: 'PUT' }
-    }
-  );
 }

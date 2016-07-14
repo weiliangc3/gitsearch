@@ -1,5 +1,5 @@
 angular
-  .module('GitSearcher', ['ngResource', 'ui.router'])
+  .module('GitSearcher', ['ui.router'])
   .constant('API', 'https://api.github.com/')
   .config(MainRouter);
 

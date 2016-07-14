@@ -1,8 +1,8 @@
 angular
 .module('GitSearcher')
-.controller('UsersController', UsersController);
+.controller('MainController', MainController);
 
-UsersController.$inject = ['User', '$state', '$stateParams'];
-function UsersController(User, $state, $stateParams){
+MainController.$inject = ['$http', '$state', '$stateParams'];
+function MainController($state, $stateParams){
 
 }
