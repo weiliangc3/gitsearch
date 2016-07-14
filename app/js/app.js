@@ -36906,3 +36906,58 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
+angular
+  .module('GitSearcher', ['ngResource', 'ui.router'])
+  .constant('API', 'https://api.github.com/')
+  .config(MainRouter);
+
+
+MainRouter.$inject = ['$stateProvider','$urlRouterProvider', "$locationProvider"];
+function MainRouter($stateProvider, $urlRouterProvider, $locationProvider){
+  $locationProvider.html5Mode(true);
+
+  $stateProvider
+    .state('home', {
+      url: "/",
+      templateUrl: "../views/statics/home.html",
+      onEnter: function(){
+      }
+    })
+    .state('user', {
+      url: "/users/:userId",
+      templateUrl: "../views/users/show.html",
+      onEnter: function(){
+      }
+    });
+
+
+  $urlRouterProvider.otherwise("/");
+}
+
+angular
+.module('GitSearcher')
+.controller('UsersController', UsersController);
+
+UsersController.$inject = ['User', '$state', '$stateParams'];
+function UsersController(User, $state, $stateParams){
+
+}
+
+angular
+  .module('GitSearcher')
+  .factory('User', User);
+
+User.$inject = ['$resource', 'API'];
+function User($resource, API){
+
+  return $resource(
+    API+'/users/:id', {id: '@id'},
+    { 'get':       { method: 'GET' },
+      'save':      { method: 'POST' },
+      'query':     { method: 'GET', isArray: false},
+      'remove':    { method: 'DELETE' },
+      'delete':    { method: 'DELETE' },
+      'update':    { method: 'PUT' }
+    }
+  );
+}
