@@ -1,26 +1,31 @@
 <h2>Welcome to Git Searcher</h2>
 
-<form class="search-form" ng-submit="Main.search()" >
+<form class="search-form" ng-submit="Main.newSearch()" >
 
   <input type="text" name="search-input" placeholder="Type your search in here" ng-model="Main.searchInput">
 
-  <input type="submit" name="search-submit">
+  <input type="submit" name="search-submit" value="New Search">
 
 </form>
 
-<div class="error" ng-if="Main.error">
-  <p>
+<div class="messages">
+  <p ng-if="Main.error">
     Error! {{Main.error}}
   </p>
-</div>
-
-<div class="message" ng-if="Main.message">
-  <p>
+  <p ng-if="Main.message">
     {{Main.message}}
+  </p>
+  <p ng-if="Main.searchInputUsed">
+    You searched for: {{Main.searchInputUsed}}.
+  </p>
+  <p ng-if="Main.searchResults.total_count">
+    {{Main.searchResults.total_count}} result<span ng-if="Main.searchResults.total_count > 1">s</span> found:
   </p>
 </div>
 
-<div class="results">
+<div class="results" ng-if="Main.searchResults">
+
+
   <div class="result" ng-repeat="result in Main.searchResults.items">
     <h3>{{result.login}}</h3>
     <p>
@@ -30,6 +35,9 @@
 
 </div>
 
+<div class="pages">
+  <button type="button" name="button" ng-repeat="page in Main.pageArray track by $index" ng-click="Main.search($index+1, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)">{{$index + 1}}</button>
+</div>
 
 <p>
   Figure out offsets and pagination. Also filters.

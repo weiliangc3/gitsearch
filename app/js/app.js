@@ -36084,42 +36084,83 @@ function MainController($http, $state, $stateParams, API){
 
   var self = this;
 
-  self.searchInput = null;
-  self.searchOrder = "desc";
-  self.error = null;
-  self.message = null;
-  self.searchResults = null;
-  self.searchPageNo = 1;
+  self.searchInput      = null;
+  self.error            = null;
+  self.message          = null;
+  self.searchResults    = null;
 
-  self.search = search;
+  // default values
+  self.perPage          = 30;
+  self.searchOrder      = "desc";
 
+  // post search variables
+  self.searchInputUsed  = null;
+  self.currentPage      = null;
 
-  function search(){
-    console.log("searchinput", self.searchInput);
+  // Functions
+  self.search     = search;
+  self.newSearch  = newSearch;
+
+  function newSearch(){
+    // Set variables for pagination
+    self.currentPage      = 1;
+    self.searchInputUsed  = self.searchInput;
+    self.perPageUsed      = self.perPage;
+    self.searchOrderUsed  = self.searchOrder;
+
+    search(1, self.searchInput, self.perPage, self.searchOrder);
+  }
+
+  function search(pageNo, searchInput, perPage, searchOrder){
+    // --REMOVE FOR DEPLOYMENT--
+    console.log("params", pageNo, searchInput, perPage, searchOrder);
+
     self.message = "Searching...";
+    self.searchResults = null;
 
     $http.get( API + "search/users", {
       params: {
-        q: self.searchInput,
-        order: self.searchOrder,
-        page: self.searchPageNo,
-        per_page: 30
+        q: searchInput,
+        order: searchOrder,
+        page: pageNo,
+        per_page: perPage
       },
     }).then(function(res){
-      self.message = null;
+      // --REMOVE FOR DEPLOYMENT--
       console.log("firstres.data", res.data);
-      self.searchResults = res.data;
+
+      // Reset messages
+      self.message = null;
       self.error = null;
+
+      // Assign response data
+      self.searchResults = res.data;
+
+      // Resolve pagination
+      self.totalPages = Math.ceil(self.searchResults.total_count / self.perPage);
+      self.currentPage = pageNo;
+      if (self.totalPages > 1){
+        self.pageArray = new Array(self.totalPages);
+        self.message = "Showing page " + self.currentPage + " of " + self.totalPages;
+      } else {
+        self.pageArray = null;
+      }
+      // Error messages
       if (self.searchResults.items.length < 1){
-        self.error = "Your search yielded no results";
+        self.message = "Your search yielded no results";
       }
     }, function(res){
-      self.message = null;
-      console.log("error res", res);
-      self.error = res.data;
+      // Error in request- console logging error and sending as error, (?)REMOVE FOR DEPLOYMENT
+
+      if (res.data.message === "Only the first 1000 search results are available"){
+        self.message = "Unfortunately, the github API only serves the first 1k search results. Try an earlier page!";
+        self.searchResults = null;
+      } else {
+        self.message = null;
+        self.error = res.data;
+        console.log("error res", res);
+
+      }
     });
-
-
   }
-
 }
