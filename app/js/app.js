@@ -36086,6 +36086,8 @@ function MainController($http, $state, $stateParams, API){
 
   self.searchInput = null;
   self.searchOrder = "desc";
+  self.error = null;
+  self.searchResults = null;
 
   self.search = search;
 
@@ -36099,9 +36101,15 @@ function MainController($http, $state, $stateParams, API){
         order: self.searchOrder,
       },
     }).then(function(res){
-      console.log("firstres", res);
+      console.log("firstres.data", res.data);
+      self.searchResults = res.data;
+      self.error = null;
+      if (self.searchResults.items.length < 1){
+        self.error = "Your search yielded no results";
+      }
     }, function(res){
       console.log("error res", res);
+      self.error = res.data;
     });
 
 

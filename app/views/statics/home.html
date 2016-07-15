@@ -7,3 +7,24 @@
   <input type="submit" name="search-submit">
 
 </form>
+
+<div class="error" ng-if="Main.error">
+  <p>
+    Error! {{Main.error}}
+  </p>
+</div>
+
+<div class="results">
+  <div class="result" ng-repeat="result in Main.searchResults.items">
+    <h3>{{result.login}}</h3>
+    <p>
+      {{result.url}}
+    </p>
+  </div>
+
+</div>
+
+
+<p>
+  Figure out offsets and pagination. Also filters.
+</p>
