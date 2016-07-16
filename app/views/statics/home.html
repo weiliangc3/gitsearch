@@ -1,16 +1,12 @@
 <h2>Welcome to Git Searcher</h2>
 
 <h2>
-  Add (Next Page) etc to pagination. Also details view page for a selected user from the results pages (name, location, avatar, 3
-repositories with higher stargazers_count and other information you consider relevant)
+  Add (Next Page) etc to pagination.
 </h2>
 
 <form class="search-form" ng-submit="Main.newSearch()" >
-
   <input type="text" name="search-input" placeholder="Type your search in here" ng-model="Main.searchInput">
-
   <input type="submit" name="search-submit" value="New Search">
-
 </form>
 
 <div class="messages">
@@ -20,6 +16,20 @@ repositories with higher stargazers_count and other information you consider rel
   <p ng-if="Main.message">
     {{Main.message}}
   </p>
+
+  <div class="pages" ng-if="Main.totalPages > 1">
+    <form class="page-form"  ng-submit="Main.search(Main.pageSelected, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)">
+      <select class="page-select" ng-model="Main.pageSelected">
+        <option ng-repeat="page in Main.pageArray track by $index" value="{{$index+1}}">{{$index + 1}}</option>
+      </select>
+      <button type="submit">Go to this page</button>
+    </form>
+    <div>
+      <button type="button" ng-if="Main.currentPage > 1" ng-click="">Previous page</button>
+      <button type="button" ng-if="Main.currentPage < Main.totalPages" ng-click="">Previous page</button>
+    </div>
+  </div>
+
   <p ng-if="Main.searchInputUsed">
     You searched for: {{Main.searchInputUsed}}.
   </p>
@@ -29,17 +39,19 @@ repositories with higher stargazers_count and other information you consider rel
 </div>
 
 <div class="results" ng-if="Main.searchResults">
-
-
-  <div class="result" ng-repeat="result in Main.searchResults.items">
-    <h3>{{result.login}}</h3>
-    <p>
-      {{result.url}}
-    </p>
+  <div class="result" ng-repeat="result in Main.searchResults.items" ui-sref="user({username: result.login})">
+    <div class="avatar" style="background-image: url({{result.avatar_url}})"></div>
+    <div class="username">
+      <span>{{result.login}}</span>
+    </div>
   </div>
-
 </div>
 
-<div class="pages">
-  <button type="button" name="button" ng-repeat="page in Main.pageArray track by $index" ng-click="Main.search($index+1, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)">{{$index + 1}}</button>
+<div class="pages" ng-if="Main.totalPages > 1">
+  <form class="page-form"  ng-submit="Main.search(Main.pageSelected, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)">
+    <select class="page-select" ng-model="Main.pageSelected">
+      <option ng-repeat="page in Main.pageArray track by $index" value="{{$index+1}}">{{$index + 1}}</option>
+    </select>
+    <button type="submit" name="button">Go to this page</button>
+  </form>
 </div>

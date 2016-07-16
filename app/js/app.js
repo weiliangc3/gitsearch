@@ -36052,7 +36052,6 @@ angular
   .constant('API', 'https://api.github.com/')
   .config(MainRouter);
 
-
 MainRouter.$inject = ['$stateProvider','$urlRouterProvider', "$locationProvider"];
 function MainRouter($stateProvider, $urlRouterProvider, $locationProvider){
   $locationProvider.html5Mode(true);
@@ -36060,17 +36059,13 @@ function MainRouter($stateProvider, $urlRouterProvider, $locationProvider){
   $stateProvider
     .state('home', {
       url: "/",
-      templateUrl: "../views/statics/home.html",
-      onEnter: function(){
-      }
+      templateUrl: "/views/statics/home.html"
     })
     .state('user', {
-      url: "/users/:userId",
-      templateUrl: "../views/users/show.html",
-      onEnter: function(){
-      }
+      url: "/users/:username",
+      templateUrl: "/views/users/show.html",
+      controller: "UserController as User"
     });
-
 
   $urlRouterProvider.otherwise("/");
 }
@@ -36163,4 +36158,35 @@ function MainController($http, $state, $stateParams, API){
       }
     });
   }
+}
+
+angular
+.module('GitSearcher')
+.controller('UserController', UserController);
+
+UserController.$inject = ['$http', '$state', '$stateParams', 'API'];
+function UserController($http, $state, $stateParams, API){
+
+  var self = this;
+
+  self.username = $stateParams.username;
+
+  console.log("Getting user");
+
+  getUser();
+
+ function getUser(){
+    self.message = "Searching...";
+    self.searchResults = null;
+
+    $http.get( API + "users/" + self.username)
+    .then(function(res){
+      // --REMOVE FOR DEPLOYMENT--
+      console.log("firstres.data", res.data);
+
+    }, function(res){
+
+    });
+  }
+
 }

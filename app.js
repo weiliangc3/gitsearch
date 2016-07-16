@@ -8,7 +8,7 @@ app.use("/", express.static(__dirname + "/app"));
 
 // Index page
 app.get("/*",function (req,res){
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/app/index.html');
 });
 
 // Now stay a while, and listen.
