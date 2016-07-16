@@ -16,7 +16,7 @@ function MainRouter($stateProvider, $urlRouterProvider, $locationProvider){
       }
     })
     .state('user', {
-      url: "/users/:userId",
+      url: "/users/:username",
       templateUrl: "../views/users/show.html",
       controller: "UserController as User",
       onEnter: function(){
