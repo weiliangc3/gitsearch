@@ -1,6 +1,28 @@
-<h2>Showpage</h2>
+<h2 ng-if="!User.user">Loading data...</h2>
+<h2>{{User.user.login}}</h2>
 
-<p>
-  Also details view page for a selected user from the results pages (name, location, avatar, 3
-repositories with higher stargazers_count and other information you consider relevant)
-</p>
+<div class="user" ng-if="!!User.user">
+  <div class="user-details">
+    <img src="{{User.user.avatar_url}}" alt="Avatar" class="avatar"/>
+    <p>
+      Name:
+      <span ng-if="!!User.user.name">{{User.user.name}}</span>
+      <span ng-if="!User.user.name">Name not provided</span>
+    </p>
+    <p>
+      Location:
+      <span ng-if="!!User.user.location">{{User.user.location}}</span>
+      <span ng-if="!User.user.location">Location not provided</span>
+    </p>
+  </div>
+  <div class="repos">
+    <p>
+      Top 3 repos (by stargazer count) out of {{User.user.public_repos}} public repos:
+      <ul>
+        <li ng-repeat="repo in User.topRepos">{{repo.name}}, {{repo.stargazers_count}} stargazers- repo available <a href="{{repo.svn_url}}">here</a></li>
+      </ul>
+    </p>
+  </div>
+</div>
+
+<button type="button" ui-sref="home">Back to search</button>

@@ -35,9 +35,6 @@ function MainController($http, $state, $stateParams, API){
   }
 
   function search(pageNo, searchInput, perPage, searchOrder){
-    // --REMOVE FOR DEPLOYMENT--
-    console.log("params", pageNo, searchInput, perPage, searchOrder);
-
     self.message = "Searching...";
     self.searchResults = null;
 
@@ -49,9 +46,6 @@ function MainController($http, $state, $stateParams, API){
         per_page: perPage
       },
     }).then(function(res){
-      // --REMOVE FOR DEPLOYMENT--
-      console.log("firstres.data", res.data);
-
       // Reset messages
       self.message = null;
       self.error = null;
@@ -73,8 +67,7 @@ function MainController($http, $state, $stateParams, API){
         self.message = "Your search yielded no results";
       }
     }, function(res){
-      // Error in request- console logging error and sending as error, (?)REMOVE FOR DEPLOYMENT
-
+      // Error in request- console logging error and sending as error, and error handling for 1k search limits
       if (res.data.message === "Only the first 1000 search results are available"){
         self.message = "Unfortunately, the github API only serves the first 1k search results. Try an earlier page!";
         self.searchResults = null;
