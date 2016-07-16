@@ -1,5 +1,10 @@
 <h2>Welcome to Git Searcher</h2>
 
+<h2>
+  Add (Next Page) etc to pagination. Also details view page for a selected user from the results pages (name, location, avatar, 3
+repositories with higher stargazers_count and other information you consider relevant)
+</h2>
+
 <form class="search-form" ng-submit="Main.newSearch()" >
 
   <input type="text" name="search-input" placeholder="Type your search in here" ng-model="Main.searchInput">
@@ -38,7 +43,3 @@
 <div class="pages">
   <button type="button" name="button" ng-repeat="page in Main.pageArray track by $index" ng-click="Main.search($index+1, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)">{{$index + 1}}</button>
 </div>
-
-<p>
-  Figure out offsets and pagination. Also filters.
-</p>
