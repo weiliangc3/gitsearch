@@ -1,14 +1,93 @@
 body {
+  background: #FFEEEE;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #FFEEEE, #DDEFBB);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #FFEEEE, #DDEFBB);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: #041310;
+  font-family: "Open Sans", Helvetica, sans-serif;
+  min-height: 100vh;
+  position: relative;
+}
+
+h1 {
+  font-family: "Montserrat", Helvetica, sans-serif;
+  text-align: center;
+  font-size: 2.827em;
+}
+
+h2 {
+  font-size: 1.999em;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.414em;
+}
+
+.button {
   background: white;
+  border: 1px solid #7CCE5E;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.button:active {
+  box-shadow: none;
+  background: #B3E5A1;
+}
+
+.button:hover {
+  box-shadow: 1px 1px 3px #185900;
+}
+
+form.search-form {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  transition: 0.5s all ease;
+}
+
+form.search-form input#search-input {
+  font-size: 1.414em;
+  padding: 10px;
+  border: 1px solid #7CCE5E;
+  box-shadow: 1px 1px 3px #185900;
+}
+
+form.search-form input#search-submit {
+  font-size: 1.414em;
+  padding: 10px;
+}
+
+form.search-form.searchUsed {
+  font-size: 1em;
+  position: relative;
+  top: 0;
+  left: 0;
+  transform: none;
+  margin: 0 auto;
+}
+
+div.results {
+  margin: 1em;
+  text-align: center;
 }
 
 div.results div.result {
   height: 75px;
-  width: 100%;
+  width: 70%;
   cursor: pointer;
-  background-color: blue;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  background-color: #FDFDFD;
+  border: 2px solid #C8C7C7;
+  margin: 10px auto;
+  transition: 0.4s all ease;
+}
+
+div.results div.result:hover {
+  box-shadow: 4px 4px 5px #C8C7C7;
 }
 
 div.results div.result div.avatar {
@@ -25,6 +104,8 @@ div.results div.result div.username {
 }
 
 div.results div.result div.username span {
+  font-size: 1.414em;
+  font-weight: bold;
   display: inline-block;
   vertical-align: middle;
 }

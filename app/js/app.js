@@ -36097,13 +36097,23 @@ function MainController($http, $state, $stateParams, API){
   self.newSearch  = newSearch;
 
   function newSearch(){
-    // Set variables for pagination
-    self.currentPage      = 1;
-    self.searchInputUsed  = self.searchInput;
-    self.perPageUsed      = self.perPage;
-    self.searchOrderUsed  = self.searchOrder;
+    // Test for invalid searches;
+    if (/\S/.test(self.searchInput) && self.searchInput !== null){
 
-    search(1, self.searchInput, self.perPage, self.searchOrder);
+      self.searchUsed = true;
+
+      // Set variables for pagination
+      self.currentPage      = 1;
+      self.searchInputUsed  = self.searchInput;
+      self.perPageUsed      = self.perPage;
+      self.searchOrderUsed  = self.searchOrder;
+      self.totalPages       = null;
+      self.currentPage      = 1;
+
+      search(1, self.searchInput, self.perPage, self.searchOrder);
+    } else {
+      self.message = "Invalid search- please input a term to search for";
+    }
   }
 
   function search(pageNo, searchInput, perPage, searchOrder){

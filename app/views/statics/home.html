@@ -1,8 +1,6 @@
-<h2>Welcome to Git Searcher</h2>
-
-<form class="search-form" ng-submit="Main.newSearch()" >
-  <input type="text" name="search-input" placeholder="Type your search in here" ng-model="Main.searchInput">
-  <input type="submit" name="search-submit" value="New Search">
+<form class="search-form" ng-submit="Main.newSearch()" ng-class="{searchUsed: Main.searchUsed}">
+  <input id="search-input" type="text" name="search-input" placeholder="Type your search in here" ng-model="Main.searchInput">
+  <input id="search-submit" class="button" type="submit" name="search-submit" value="Go">
 </form>
 
 <div class="messages">
@@ -16,14 +14,14 @@
   <div class="pages" ng-if="Main.totalPages > 1">
     <form class="page-form"  ng-submit="Main.search(Main.pageSelected, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)">
       <select class="page-select" ng-model="Main.pageSelected">
-        <option ng-repeat="page in Main.pageArray track by $index" value="{{$index+1}}">{{$index + 1}}</option>
+        <option ng-repeat="page in Main.pageArray track by $index" value="{{$index+1}}" ng-attr-selected="$index+1 === Main.currentPage">{{$index + 1}}</option>
       </select>
-      <button type="submit">Go to this page</button>
+      <button type="submit" class="button">Go to this page</button>
     </form>
     <div>
-      <button type="button" ng-if="Main.currentPage > 1" ng-click="Main.search(1, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)">First page</button>
-      <button type="button" ng-if="Main.currentPage > 2" ng-click="Main.search(Main.currentPage-1, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)">Previous page</button>
-      <button type="button" ng-if="Main.currentPage < Main.totalPages" ng-click="Main.search(Main.currentPage+1, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)">Next page</button>
+      <button type="button" ng-if="Main.currentPage > 1" ng-click="Main.search(1, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)" class="button">First page</button>
+      <button type="button" ng-if="Main.currentPage > 2" ng-click="Main.search(Main.currentPage-1, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)" class="button">Previous page</button>
+      <button type="button" ng-if="Main.currentPage < Main.totalPages" ng-click="Main.search(Main.currentPage+1, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)" class="button">Next page</button>
     </div>
   </div>
 
@@ -49,11 +47,11 @@
     <select class="page-select" ng-model="Main.pageSelected">
       <option ng-repeat="page in Main.pageArray track by $index" value="{{$index+1}}">{{$index + 1}}</option>
     </select>
-    <button type="submit">Go to this page</button>
+    <button type="submit" class="button">Go to this page</button>
   </form>
   <div>
-    <button type="button" ng-if="Main.currentPage > 1" ng-click="Main.search(1, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)">First page</button>
-    <button type="button" ng-if="Main.currentPage > 2" ng-click="Main.search(Main.currentPage-1, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)">Previous page</button>
-    <button type="button" ng-if="Main.currentPage < Main.totalPages" ng-click="Main.search(Main.currentPage+1, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)">Next page</button>
+    <button type="button" ng-if="Main.currentPage > 1" ng-click="Main.search(1, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)" class="button">First page</button>
+    <button type="button" ng-if="Main.currentPage > 2" ng-click="Main.search(Main.currentPage-1, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)" class="button">Previous page</button>
+    <button type="button" ng-if="Main.currentPage < Main.totalPages" ng-click="Main.search(Main.currentPage+1, Main.searchInputUsed, Main.perPageUsed, Main.searchOrderUsed)" class="button">Next page</button>
   </div>
 </div>
