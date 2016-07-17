@@ -13,7 +13,8 @@ function MainController($http, $state, $stateParams, API){
   self.searchResults    = null;
 
   // default values
-  self.perPage          = 30;
+  self.advancedSearch   = false;
+  self.perPage          = "30";
   self.searchOrder      = "desc";
 
   // post search variables

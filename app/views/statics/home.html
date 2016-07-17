@@ -1,6 +1,22 @@
 <form class="search-form" ng-submit="Main.newSearch()" ng-class="{searchUsed: Main.searchUsed}">
   <input id="search-input" type="text" name="search-input" placeholder="Type your search in here" ng-model="Main.searchInput">
   <input id="search-submit" class="button" type="submit" name="search-submit" value="Go">
+  <span ng-click="Main.advancedSearch=true" class="link">Advanced Search</span>
+  <div class="advanced-search" ng-if="Main.advancedSearch">
+    <label for="search-perPage">Items per page</label>
+    <select class="search-perPage" name="search-perPage" ng-model="Main.perPage">
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="30" selected>30</option>
+      <option value="50">50</option>
+      <option value="75">75</option>
+    </select>
+    <label for="search-searchOrder">Search Order</label>
+    <select class="search-order" name="search-order" ng-model="Main.searchOrder">
+      <option value="asc">Ascending</option>
+      <option value="desc" selected>Descending</option>
+    </select>
+  </div>
 </form>
 
 <div class="messages">
